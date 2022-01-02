@@ -1,3 +1,53 @@
+const minCells = 58;
+const cellSize = 20;
+const canvasSize = minCells * cellSize;
+const tenK = new Array(10000);
+const thirds = new Array(3333);
+const cellArr = new Array(minCells).fill(0);
+let counter = 0;
+let lastCounter = counter;
+function setup() {
+    createCanvas(canvasSize, canvasSize);
+    rectMode(CENTER).noFill().frameRate(30);
+    console.log(tenK.length);
+    background(0);
+}
+function drawCell(x, y) {
+    const realX = (x * cellSize) + (cellSize / 2);
+    const realY = (y * cellSize) + (cellSize / 2);
+    noFill();
+    stroke((Math.random() * 255));
+    strokeWeight(0.25);
+    circle(realX, realY, (Math.random() * (cellSize)));
+    rotate(counter * 0.0001);
+    rect(realX, realY, cellSize, cellSize);
+    noStroke();
+    fill(map((Math.random() * 255), 0, 255, 269, 255));
+    circle(realX, realY, (Math.random() * (cellSize / 3)));
+}
+function draw() {
+    if (counter !== lastCounter) {
+        background(0, 100);
+        cellArr.forEach((_, rowNo) => {
+            console.log(rowNo);
+            cellArr.forEach((_, cellNo) => {
+                console.log(rowNo, cellNo);
+                drawCell(rowNo, cellNo);
+            });
+        });
+    }
+    lastCounter = counter;
+}
+function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+        lastCounter = counter;
+        counter--;
+    }
+    else if (keyCode === RIGHT_ARROW) {
+        lastCounter = counter;
+        counter++;
+    }
+}
 class ColorHelper {
     static getColorVector(c) {
         return createVector(red(c), green(c), blue(c));
@@ -53,33 +103,54 @@ class PolygonHelper {
         pop();
     }
 }
-let numberOfShapesControl;
+const minCells = 58;
+const cellSize = 20;
+const canvasSize = minCells * cellSize;
+const tenK = new Array(10000);
+const thirds = new Array(3333);
+const cellArr = new Array(minCells).fill(0);
+let counter = 0;
+let lastCounter = counter;
 function setup() {
-    console.log("🚀 - Setup initialized - P5 is running");
-    createCanvas(windowWidth, windowHeight);
+    createCanvas(canvasSize, canvasSize);
     rectMode(CENTER).noFill().frameRate(30);
-    numberOfShapesControl = createSlider(1, 30, 15, 1).position(10, 10).style("width", "100px");
+    console.log(tenK.length);
+    background(0);
 }
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
+function drawCell(x, y) {
+    const realX = (x * cellSize) + (cellSize / 2);
+    const realY = (y * cellSize) + (cellSize / 2);
+    noFill();
+    stroke((Math.random() * 255));
+    strokeWeight(0.25);
+    circle(realX, realY, (Math.random() * (cellSize)));
+    rotate(counter * 0.0001);
+    rect(realX, realY, cellSize, cellSize);
+    noStroke();
+    fill(map((Math.random() * 255), 0, 255, 269, 255));
+    circle(realX, realY, (Math.random() * (cellSize / 3)));
 }
 function draw() {
-    background(0);
-    translate(width / 2, height / 2);
-    const numberOfShapes = numberOfShapesControl.value();
-    const colours = ColorHelper.getColorsArray(numberOfShapes);
-    const speed = (frameCount / (numberOfShapes * 30)) * 2;
-    for (var i = 0; i < numberOfShapes; i++) {
-        push();
-        const lineWidth = 8;
-        const spin = speed * (numberOfShapes - i);
-        const numberOfSides = 3 + i;
-        const width = 40 * i;
-        strokeWeight(lineWidth);
-        stroke(colours[i]);
-        rotate(spin);
-        PolygonHelper.draw(numberOfSides, width);
-        pop();
+    if (counter !== lastCounter) {
+        background(0, 100);
+        cellArr.forEach((_, rowNo) => {
+            console.log(rowNo);
+            cellArr.forEach((_, cellNo) => {
+                console.log(rowNo, cellNo);
+                drawCell(rowNo, cellNo);
+            });
+        });
+    }
+    lastCounter = counter;
+}
+function keyPressed() {
+    if (keyCode === LEFT_ARROW) {
+        lastCounter = counter;
+        counter--;
+    }
+    else if (keyCode === RIGHT_ARROW) {
+        lastCounter = counter;
+        counter++;
     }
 }
 //# sourceMappingURL=build.js.map
